@@ -19,7 +19,7 @@ app.use(express.static('public'));
 
 
 // Database configuration with mongoose
-mongoose.connect('mongodb://heroku_q0d2tjgx:bthmo6c12opdttk28s6mt074fq@ds049466.mlab.com:49466/heroku_q0d2tjgx');
+mongoose.connect('mongodb://heroku_mrgt5401:c8dea1ra31s8gv4rj0n8vbpgqq@ds017432.mlab.com:17432/heroku_mrgt5401');
 var db = mongoose.connection;
 
 // show any mongoose errors
