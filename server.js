@@ -52,8 +52,8 @@ app.get('/scrape', function(req, res) {
   request('https://www.web-savvy-marketing.com/category/website-development/', function(error, response, html) {
   	// then, we load that into cheerio and save it to $ for a shorthand selector
     var $ = cheerio.load(html);
-    // now, we grab every h2 within an article tag, and do the following:
-    $('article h2').each(function(i, element) {
+    // now, we grab every h1 within an article tag, and do the following:
+    $('article h1').each(function(i, element) {
 
     		// save an empty result object
 				var result = {};
@@ -140,19 +140,18 @@ app.post('/articles/:id', function(req, res){
 			// using the Article id passed in the id parameter of our url, 
 			// prepare a query that finds the matching Article in our db
 			// and update it to make it's lone note the one we just saved
-			Article.findOneAndUpdate({'_id': req.params.id}, {'note':doc._id})
-			// execute the above query
-			.exec(function(err, doc){
-				// log any errors
-				if (err){
-					console.log(err);
-				} else {
-					// or send the document to the browser
-					res.send(doc);
-				}
-			});
-		}
-	});
+			Article.findOneAndUpdate({}, {$push: {'notes': doc._id}}, {new: true}, function(err, doc) {
+        // send any errors to the browser
+        if (err) {
+          res.send(err);
+        } 
+        // or send the doc to the browser
+        else {
+          res.send(doc);
+        }
+      });
+    }
+  });
 });
 
 
