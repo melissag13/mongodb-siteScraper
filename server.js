@@ -19,7 +19,7 @@ app.use(express.static('public'));
 
 
 // Database configuration with mongoose
-mongoose.connect('mongodb://heroku_q0d2tjgx:bthmo6c12opdttk28s6mt074fq@ds049466.mlab.com:49466/heroku_q0d2tjgx');
+mongoose.connect('mongodb://heroku_mrgt5401:c8dea1ra31s8gv4rj0n8vbpgqq@ds017432.mlab.com:17432/heroku_mrgt5401');
 var db = mongoose.connection;
 
 // show any mongoose errors
@@ -52,8 +52,13 @@ app.get('/scrape', function(req, res) {
   request('https://www.web-savvy-marketing.com/category/website-development/', function(error, response, html) {
   	// then, we load that into cheerio and save it to $ for a shorthand selector
     var $ = cheerio.load(html);
+<<<<<<< HEAD
     // now, we grab every .entry-title within an article tag, and do the following:
     $('article .entry-title').each(function(i, element) {
+=======
+    // now, we grab every h1 within an article tag, and do the following:
+    $('article h1').each(function(i, element) {
+>>>>>>> 025778adf83c8555cc965e8e36d9abc5ca6da656
 
     		// save an empty result object
 				var result = {};
@@ -140,19 +145,18 @@ app.post('/articles/:id', function(req, res){
 			// using the Article id passed in the id parameter of our url, 
 			// prepare a query that finds the matching Article in our db
 			// and update it to make it's lone note the one we just saved
-			Article.findOneAndUpdate({'_id': req.params.id}, {'note':doc._id})
-			// execute the above query
-			.exec(function(err, doc){
-				// log any errors
-				if (err){
-					console.log(err);
-				} else {
-					// or send the document to the browser
-					res.send(doc);
-				}
-			});
-		}
-	});
+			Article.findOneAndUpdate({}, {$push: {'notes': doc._id}}, {new: true}, function(err, doc) {
+        // send any errors to the browser
+        if (err) {
+          res.send(err);
+        } 
+        // or send the doc to the browser
+        else {
+          res.send(doc);
+        }
+      });
+    }
+  });
 });
 
 
@@ -162,6 +166,6 @@ app.post('/articles/:id', function(req, res){
 
 
 // listen on port 3000
-app.listen(3000, function() {
+app.listen(process.env.PORT || 3000, function() {
   console.log('App running on port 3000!');
 });
