@@ -52,8 +52,8 @@ app.get('/scrape', function(req, res) {
   request('https://www.web-savvy-marketing.com/category/website-development/', function(error, response, html) {
   	// then, we load that into cheerio and save it to $ for a shorthand selector
     var $ = cheerio.load(html);
-    // now, we grab every h2 within an article tag, and do the following:
-    $('article h2').each(function(i, element) {
+    // now, we grab every .entry-title within an article tag, and do the following:
+    $('article .entry-title').each(function(i, element) {
 
     		// save an empty result object
 				var result = {};
