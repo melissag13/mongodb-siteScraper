@@ -52,8 +52,16 @@ app.get('/scrape', function(req, res) {
   request('https://www.web-savvy-marketing.com/category/website-development/', function(error, response, html) {
   	// then, we load that into cheerio and save it to $ for a shorthand selector
     var $ = cheerio.load(html);
+<<<<<<< HEAD
     // now, we grab every .entry-title within an article tag, and do the following:
     $('article .entry-title').each(function(i, element) {
+=======
+
+    // now, we grab every .entry-title within an article tag, and do the following:
+    $('article .entry-title').each(function(i, element) {
+
+    
+>>>>>>> 67b651122204efb896ede6bbcfefa2375c502466
 
     		// save an empty result object
 				var result = {};
