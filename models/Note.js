@@ -22,8 +22,5 @@ var NoteSchema = new Schema({
 var Note = mongoose.model('Note', NoteSchema);
 
 // export the Note model
-<<<<<<< HEAD
+
 module.exports = Note;
-=======
-module.exports = Note;
->>>>>>> 025778adf83c8555cc965e8e36d9abc5ca6da656
